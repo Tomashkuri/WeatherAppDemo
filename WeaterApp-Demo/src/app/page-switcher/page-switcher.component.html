@@ -1,0 +1,8 @@
+<div class="content">
+<ng-container *ngIf="isWeatherPage(); else favoritesPage">
+    <app-weather-page></app-weather-page>
+  </ng-container>
+  <ng-template #favoritesPage>
+    <app-favorites-page></app-favorites-page>
+  </ng-template>
+</div>

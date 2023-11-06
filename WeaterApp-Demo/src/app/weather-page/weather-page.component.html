@@ -1,0 +1,14 @@
+<div>
+  <input type="text" [(ngModel)]="searchQuery" (keyup)="searchLocations()" placeholder="Search location">
+    <div *ngIf="searchResults">
+      <ul>
+        <li *ngFor="let result of searchResults" (click)="selectLocation(result)">
+          {{ result.LocalizedName }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div *ngIf="currentWeather">
+    <h2>{{ currentWeather.WeatherText }}</h2>
+    <p>Temperature: {{ currentWeather.Temperature.Metric.Value }}°C</p>
+  </div>
