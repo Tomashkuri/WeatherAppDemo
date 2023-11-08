@@ -17,8 +17,32 @@
       <p>{{ currentWeather.cityName }}</p>
       <p>{{ currentWeather.temperature.Metric.Value }}°C</p>
     </div>
-    <div class="weather-txt">
+    <div class="weather-txt center-text">
       <h2>{{ currentWeather.WeatherText }}</h2>
     </div>
+    <div class="favorite-section">
+      <span class="favorite-text">Add to Favorites</span>
+      <span class="heart-icon" [class.fill]="isFavorite">
+        <img *ngIf="!isFavorite" src="assets/heart/empty-heart.png" alt="Empty Heart" (click)="toggleFavorite()"/>
+        <img *ngIf="isFavorite" src="assets/heart/filled-heart4.png" alt="Filled Heart" (click)="toggleFavorite()"/>
+      </span>
+    </div>
+  </div>
+  <div class="weather-forcast">
+    <ng-container *ngIf="fiveDayForecast">
+      <div class="forecast-flex-container">
+        <div class="day" *ngFor="let day of fiveDayForecast">
+          <div class="day-name">
+            <p>{{ getDayName(day.Date) }}</p>
+          </div>
+          <div class="day-icon">
+            <img src= "assets/{{ day.Day.Icon }}.png" alt="weather-icon">
+          </div>
+          <div class="day-temperature">
+            <p>{{ day.Temperature.Maximum.Value }}°C</p>
+          </div>
+        </div>
+      </div>
+  </ng-container>
   </div>
 </div>

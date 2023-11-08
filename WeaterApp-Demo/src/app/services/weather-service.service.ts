@@ -26,10 +26,11 @@ getCurrentWeather(locationKey: string) {
   });
 }
 
-getFiveDayForecast(locationKey: string) {
-  return this.http.get(`${this.baseUrl}/forecasts/v1/daily/5day/${locationKey}`, {
+getFiveDayForecast(locationKey: string, metric: boolean) {
+  return this.http.get<any[]>(`${this.baseUrl}/forecasts/v1/daily/5day/${locationKey}`, {
     params: {
       apikey: this.apiKey,
+      metric: metric.toString(),
     },
   });
 }

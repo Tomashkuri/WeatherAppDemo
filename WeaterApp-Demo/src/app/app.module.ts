@@ -13,6 +13,8 @@ import { ButtonModule } from 'primeng/button';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { FormsModule } from '@angular/forms';
 import { PageSwitcherComponent } from './page-switcher/page-switcher.component';
+import { DataViewModule } from 'primeng/dataview';
+
 
 @NgModule({
   declarations: [
@@ -29,6 +31,7 @@ import { PageSwitcherComponent } from './page-switcher/page-switcher.component';
     ButtonModule,
     SplitButtonModule,
     FormsModule,
+    DataViewModule,
     HttpClientModule,
   ],
   providers: [],

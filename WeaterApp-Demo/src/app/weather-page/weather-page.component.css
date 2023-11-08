@@ -31,8 +31,52 @@
 .weather-container{
     border: 1px solid black;
     height: 500px;
-    
+    display: flex;
+    flex-direction: column; /* Display items vertically */
+    justify-content: space-between; /* Align items to the top and bottom of the container */
 }
+
 .weather-general-details p{
     margin-bottom: 5px;
+}
+
+.center-text {
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically */
+    text-align: center; /* Center text within the container */
+    flex: 1; /* Allow it to take up available space */
+    margin-left: 150px;
+  }
+
+.favorite-section{
+    display:flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex: 1;
+
+}
+.heart-icon {
+    cursor: pointer;
+    font-size: 24px;
+  }
+.heart-icon>span.inne{
+    font-size: 20px;
+}
+.forecast-flex-container {
+    display: flex;
+    flex-direction: row; /* Display items vertically */
+    justify-content: center; /* Align items to the bottom of the container */
+    align-items: flex-start; /* Align items to the left side of the container */
+    flex: 1; /* Allow it to take up available space */
+    gap:50px;
+    margin-bottom: 25px;
+}
+
+.day{
+    border: 1px solid black;
+    width: 25%;
+    margin-left: 5px;
+    margin-right:5px;
+    text-align: center;
 }

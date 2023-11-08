@@ -1,8 +1,9 @@
-export interface weather{
+export class weather{
     Key: string;
     cityName: string;
     temperature: Temperature;
     WeatherText: string;
+    WeatherIcon: number;
 }
 export interface tempvalue{
     value: number,
