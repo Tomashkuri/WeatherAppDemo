@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class FavoritesPageComponent {
 
+  ngOnInit(): void {
+    console.log(`FavoritePageComponent initialized`);
+  }  
 }

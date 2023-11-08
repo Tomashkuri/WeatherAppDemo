@@ -1,14 +1,24 @@
-<div>
-  <input type="text" [(ngModel)]="searchQuery" (keyup)="searchLocations()" placeholder="Search location">
-    <div *ngIf="searchResults">
+<div class="ng-container">
+  <input class='search-bar' type="text" [(ngModel)]="searchQuery" (keyup)="searchLocations()" placeholder="Search location"/>
+    <div *ngIf="searchResults.length > 0">
       <ul>
         <li *ngFor="let result of searchResults" (click)="selectLocation(result)">
-          {{ result.LocalizedName }}
+          {{ result.LocalizedName }}, {{ result.Country.LocalizedName }}
         </li>
       </ul>
     </div>
   </div>
-  <div *ngIf="currentWeather">
-    <h2>{{ currentWeather.WeatherText }}</h2>
-    <p>Temperature: {{ currentWeather.Temperature.Metric.Value }}°C</p>
+  <div class="weather-container">
+  <div class="weather-info" *ngIf="currentWeather">
+    <div class="weather-icon">
+      <img src= "assets/{{ code }}.png" alt="weather-icon">
+    </div>
+    <div class="weather-general-details">
+      <p>{{ currentWeather.cityName }}</p>
+      <p>{{ currentWeather.temperature.Metric.Value }}°C</p>
+    </div>
+    <div class="weather-txt">
+      <h2>{{ currentWeather.WeatherText }}</h2>
+    </div>
   </div>
+</div>

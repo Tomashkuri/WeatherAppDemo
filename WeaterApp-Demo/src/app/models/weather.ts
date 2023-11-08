@@ -2,7 +2,7 @@ export interface weather{
     Key: string;
     cityName: string;
     temperature: Temperature;
-
+    WeatherText: string;
 }
 export interface tempvalue{
     value: number,

@@ -1,0 +1,38 @@
+.ng-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    margin-bottom: 5px;  
+} 
+
+.search-bar{
+    margin-top: 20px;
+    width: 300px;
+    height: 25px;
+}
+.weather-info{
+    display: flex;
+    align-items: flex-start;
+}
+.weather-icon {
+    /* Style for the icon container, e.g., size and margin */
+    align-self: center;
+    margin-right: 1px; /* Adjust margin as needed */
+}
+.weather-general-details {
+    /* Style for the city name and temperature container */
+    display: flex;
+    flex-direction:column; /* Create a vertical layout within this container */
+    justify-content: flex-start; /* Align items to the top of the container */
+  }
+.weather-container{
+    border: 1px solid black;
+    height: 500px;
+    
+}
+.weather-general-details p{
+    margin-bottom: 5px;
+}

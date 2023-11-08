@@ -1,5 +1,8 @@
 export interface Location {
     Key: string;
-    cityName: string;
-    country: string;
+    LocalizedName: string;
+    Country: {
+        ID: string;
+        LocalizedName: string;
+    };
 }
