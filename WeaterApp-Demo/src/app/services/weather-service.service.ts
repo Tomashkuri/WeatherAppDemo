@@ -5,7 +5,8 @@ import {HttpClient} from '@angular/common/http';
   providedIn: 'root'
 })
 export class WeatherServiceService {
-  private apiKey = 'bso4cOFNx7yhMF7ZSM1yGjYveuGJamFl';
+  // private apiKey = 'bso4cOFNx7yhMF7ZSM1yGjYveuGJamFl';
+  private apiKey = 'bB3LimLMYtjEa49ssc1UGjdsKajQq7Vy'
   private baseUrl = 'http://dataservice.accuweather.com';
 
   constructor(private http:HttpClient) { }

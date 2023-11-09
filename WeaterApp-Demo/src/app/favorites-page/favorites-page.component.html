@@ -1,1 +1,23 @@
-<p>favorites-page works!</p>
+<div class="error-msg" *ngIf="!favorites">
+    <p>No favorite locations saved.</p>
+</div>
+<div class="favorite-list" *ngIf="favorites">
+    <ng-container>
+      <div class="forecast-flex-container">
+        <div class="day" *ngFor="let day of favorites" (click)="displaySelectedWeather(day)">
+            <div class="day-name">
+                <p>{{ day.cityName }}</p>
+            </div>
+            <div class="day-temperature">
+                <p>{{ day.temperature.Metric.Value }}°C</p>
+            </div>
+            <div class="day-icon">
+                <img src= "assets/{{ day.weatherIcon }}.png" alt="weather-icon">
+            </div>
+            <div class="day-text">
+                <p>{{ day.WeatherText }}</p>
+            </div>
+        </div>
+      </div>
+  </ng-container>
+</div>

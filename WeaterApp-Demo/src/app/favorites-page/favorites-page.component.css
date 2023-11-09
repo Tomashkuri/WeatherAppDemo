@@ -1,0 +1,29 @@
+.favorite-list{
+    border: 1px solid black;
+    height: 500px;
+    margin-top: 30px;
+}
+.error-msg>p{
+    margin-top:25%;
+    text-align: center;
+}
+.forecast-flex-container {
+    display: flex;
+    flex-direction: row; /* Display items vertically */
+    justify-content: center; /* Align items to the bottom of the container */
+    align-items:center; /* Align items to the left side of the container */
+    flex: 1; /* Allow it to take up available space */
+    gap:25px;
+    margin-bottom: 25px;
+}
+.day{
+    display: flex;
+    flex-direction: column;
+    margin-top:5px;
+    border: 1px solid black;
+    margin-left: 5px;
+    margin-right:5px;
+    text-align: center;
+    width:150px;
+    height: auto;
+}
