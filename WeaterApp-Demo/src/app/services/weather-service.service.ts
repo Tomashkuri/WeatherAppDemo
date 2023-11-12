@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -19,20 +20,29 @@ export class WeatherServiceService {
     });
   }
 
-getCurrentWeather(locationKey: string) {
-  return this.http.get(`${this.baseUrl}/currentconditions/v1/${locationKey}`, {
-    params: {
-      apikey: this.apiKey,
-    },
-  });
-}
+  getCurrentWeather(locationKey: string) {
+    return this.http.get(`${this.baseUrl}/currentconditions/v1/${locationKey}`, {
+      params: {
+        apikey: this.apiKey,
+      },
+    });
+  }
 
-getFiveDayForecast(locationKey: string, metric: boolean) {
-  return this.http.get<any[]>(`${this.baseUrl}/forecasts/v1/daily/5day/${locationKey}`, {
-    params: {
-      apikey: this.apiKey,
-      metric: metric.toString(),
-    },
-  });
-}
+  getFiveDayForecast(locationKey: string, metric: boolean) {
+    return this.http.get<any[]>(`${this.baseUrl}/forecasts/v1/daily/5day/${locationKey}`, {
+      params: {
+        apikey: this.apiKey,
+        metric: metric.toString(),
+      },
+    });
+  }
+  getLocationKeyByLatLon(lat: number, lon: number) {
+    return this.http.get<any>(`${this.baseUrl}/locations/v1/cities/geoposition/search`, {
+      params: {
+        apikey: this.apiKey,
+        q: `${lat},${lon}`,
+        toplevel: 'true',
+      },
+    });
+  }
 }

@@ -56,6 +56,7 @@ export class WeatherPageComponent implements OnInit{
           });
         } else {
     // Tel Aviv code 215854
+    // let locationData = this.searchDefaultLocation();
     this.weatherService.getCurrentWeather('215854').pipe(
       switchMap((weather: any) => {
         if (weather.length > 0) {
@@ -70,7 +71,7 @@ export class WeatherPageComponent implements OnInit{
           this.currentWeather = new_weather;
           // console.log(this.currentWeather);
         } else {
-          this.currentWeather = this.defaultWeather;
+          // this.currentWeather = this.defaultWeather;
         }
         // this.code = weather[0].WeatherIcon;
         this.storageService.searchWeather(this.currentWeather.Key) ? this.isFavorite = true : this.isFavorite = false;
@@ -114,8 +115,8 @@ export class WeatherPageComponent implements OnInit{
           this.fiveDayForecast = forecast.DailyForecasts;
         });
         //update the favorite button
-        console.log(this.currentWeather.cityName+"\t"+this.currentWeather.Key)
-        console.log("selected a new city" + this.isFavorite);
+        // console.log(this.currentWeather.cityName+"\t"+this.currentWeather.Key)
+        // console.log("selected a new city" + this.isFavorite);
       }
     });
     this.searchResults = [];
@@ -174,4 +175,17 @@ export class WeatherPageComponent implements OnInit{
     getIsMetric(){
       return this.pageStateService.getIsMetric().getValue();
     }
+    searchDefaultLocation():string[] {
+    // Use Geolocation API to get user's current location
+    let data:string[] = [];
+      navigator.geolocation.getCurrentPosition(position => {
+      const lat = position.coords.latitude;
+      const lon = position.coords.longitude;
+      this.weatherService.getLocationKeyByLatLon(lat, lon).subscribe(locationData => {
+        data.push(locationData.Key);
+        data.push(locationData.EnglshName);
+      });
+    });
+    return data;
+  }
 }
