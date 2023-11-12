@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { WeatherServiceService } from '../services/weather-service.service';
 import { Location } from '../models/location';
 import { weather } from '../models/weather';
 import { switchMap } from 'rxjs/operators';
 import { LocalStorageService } from '../services/local-storage.service';
+import { PageStateService } from '../services/page-state.service';
 
 @Component({
   selector: 'app-weather-page',
@@ -16,8 +17,8 @@ export class WeatherPageComponent implements OnInit{
   searchResults: any[] = [];
   currentWeather: weather|any = {};
   fiveDayForecast: any[] = [];
-  metric: boolean = true;
-  code: number = 1;
+  isMetric: boolean;
+  // code: number = 1;
   isFavorite: boolean = false;
   
   dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -31,40 +32,29 @@ export class WeatherPageComponent implements OnInit{
     WeatherIcon: 1};
   
 
-  constructor(private weatherService:WeatherServiceService,private storageService:LocalStorageService) {}
+  constructor(private weatherService:WeatherServiceService,private storageService:LocalStorageService,private pageStateService:PageStateService) {}
   
-  /*ngOnInit(): void {
-    console.log(`WeatherPageComponent initialized`);
-    //tel aviv code 215854
-    this.weatherService.getCurrentWeather('215854').pipe(
-    .subscribe((weather:any) => {
-      console.log(weather[0]);
-      let new_weather = {};
-      if(weather[0].length > 0){
-        console.log("inside if");
-        this.currentWeather = {Key: '215854',
-                      cityName: 'Tel Aviv',
-                      temperature: weather[0].Temperature,
-                      WeatherText: weather[0].WeatherText};
-        // this.currentWeather = new_weather;
-        console.log(this.currentWeather);
-      }
-      else{
-        console.log("inside else");
-        this.currentWeather = this.defaultWeather;
-       }
-       this.code = weather[0].WeatherIcon;
-    });
-    //get the five day forcast
-    console.log(this.currentWeather)
-    this.weatherService.getFiveDayForecast(this.currentWeather.Key,this.metric).subscribe((forecast:any) => {
-      console.log(forecast);
-      this.fiveDayForecast = forecast.DailyForecasts;
-      console.log(this.fiveDayForecast);
-    });
-  }*/
   ngOnInit(): void {
     console.log(`WeatherPageComponent initialized`);
+    this.pageStateService.selectedWeather$.subscribe((favorite:weather) => {
+      this.pageStateService.isMetric$.subscribe((isMetric:boolean) => {
+        this.isMetric =isMetric;
+        if(favorite !== null){
+          this.weatherService.getCurrentWeather(favorite.Key).subscribe((weather:any) => {
+            if(weather.length > 0){
+              //create a new object with the weatehr structure
+              let new_weather = {Key: favorite.Key,
+                            cityName: favorite.cityName,
+                            temperature: weather[0].Temperature,
+                            WeatherText: weather[0].WeatherText,
+                            weatherIcon: weather[0].WeatherIcon};
+              this.currentWeather = new_weather;
+            }});
+          this.isFavorite = true;
+          this.weatherService.getFiveDayForecast(favorite.Key,this.getIsMetric()).subscribe((forecast:any) => {
+            this.fiveDayForecast = forecast.DailyForecasts;
+          });
+        } else {
     // Tel Aviv code 215854
     this.weatherService.getCurrentWeather('215854').pipe(
       switchMap((weather: any) => {
@@ -80,17 +70,17 @@ export class WeatherPageComponent implements OnInit{
           this.currentWeather = new_weather;
           // console.log(this.currentWeather);
         } else {
-          // console.log("inside else");
           this.currentWeather = this.defaultWeather;
         }
-        this.code = weather[0].WeatherIcon;
+        // this.code = weather[0].WeatherIcon;
         this.storageService.searchWeather(this.currentWeather.Key) ? this.isFavorite = true : this.isFavorite = false;
         // Once current weather is retrieved, fetch the five-day forecast
-        return this.weatherService.getFiveDayForecast(this.currentWeather.Key, this.metric);
+        return this.weatherService.getFiveDayForecast(this.currentWeather.Key, this.getIsMetric());
       })
     ).subscribe((forecast: any) => {
       this.fiveDayForecast = forecast.DailyForecasts;
     });
+  }})});
   }
   
    
@@ -116,13 +106,11 @@ export class WeatherPageComponent implements OnInit{
                       temperature: weather[0].Temperature,
                       WeatherText: weather[0].WeatherText,
                       weatherIcon: weather[0].WeatherIcon};
-        // this.currentWeather = weather[0];
         this.currentWeather = new_weather;
-        this.code = weather[0].WeatherIcon;
-        // console.log(this.currentWeather.cityName);
+
         this.storageService.searchWeather(this.currentWeather.Key) ? this.isFavorite = true : this.isFavorite = false;
         //show the 5 day forcast
-        this.weatherService.getFiveDayForecast(location.Key,this.metric).subscribe((forecast:any) => {
+        this.weatherService.getFiveDayForecast(location.Key,this.getIsMetric()).subscribe((forecast:any) => {
           this.fiveDayForecast = forecast.DailyForecasts;
         });
         //update the favorite button
@@ -176,5 +164,14 @@ export class WeatherPageComponent implements OnInit{
     // Save the updated list of favorite weather items in local storage
     console.log("set new item" + JSON.stringify(favoriteWeatherList))
     // localStorage.setItem('favoriteWeatherList', JSON.stringify(favoriteWeatherList));
+    }
+    toggleMetric() {
+      // this.isMetric = !this.isMetric;
+      this.weatherService.getFiveDayForecast(this.currentWeather.Key,this.getIsMetric()).subscribe((forecast:any) => {
+        this.fiveDayForecast = forecast.DailyForecasts;
+      });
+    }
+    getIsMetric(){
+      return this.pageStateService.getIsMetric().getValue();
     }
 }

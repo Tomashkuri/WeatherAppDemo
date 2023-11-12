@@ -11,11 +11,16 @@
   <div class="weather-container">
   <div class="weather-info" *ngIf="currentWeather">
     <div class="weather-icon">
-      <img src= "assets/{{ code }}.png" alt="weather-icon">
+      <img src= "assets/{{ currentWeather.weatherIcon }}.png" alt="weather-icon">
     </div>
     <div class="weather-general-details">
       <p>{{ currentWeather.cityName }}</p>
+      <div *ngIf="getIsMetric(); else imperial">
       <p>{{ currentWeather.temperature.Metric.Value }}°C</p>
+      </div>
+      <ng-template #imperial>
+        <p>{{ currentWeather.temperature.Imperial.Value }}°F</p>
+      </ng-template>
     </div>
     <div class="weather-txt center-text">
       <h2>{{ currentWeather.WeatherText }}</h2>
@@ -39,7 +44,7 @@
             <img src= "assets/{{ day.Day.Icon }}.png" alt="weather-icon">
           </div>
           <div class="day-temperature">
-            <p>{{ day.Temperature.Maximum.Value }}°C</p>
+            <p>{{ day.Temperature.Maximum.Value }} {{ day.Temperature.Maximum.Unit }}°</p>
           </div>
         </div>
       </div>

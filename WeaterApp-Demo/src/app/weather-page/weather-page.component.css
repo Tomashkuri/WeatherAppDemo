@@ -54,7 +54,6 @@
     align-items: center;
     justify-content: flex-end;
     flex: 1;
-
 }
 .heart-icon {
     cursor: pointer;
@@ -79,4 +78,17 @@
     margin-left: 5px;
     margin-right:5px;
     text-align: center;
+}
+.temp-selector{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+    margin-left: 10px;
+}
+.temp-selector>button{
+    background-color:transparent;
+    border: 1px solid black;
+    border-radius: 5px;
 }

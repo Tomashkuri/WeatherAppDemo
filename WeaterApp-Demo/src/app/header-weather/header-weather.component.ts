@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { PageStateService } from '../services/page-state.service';
 
 @Component({
@@ -7,7 +7,6 @@ import { PageStateService } from '../services/page-state.service';
   styleUrls: ['./header-weather.component.css']
 })
 export class HeaderWeatherComponent {
-
   constructor(private pageStateService: PageStateService) { }
 
   navigateToWeatherPage() {
@@ -15,5 +14,14 @@ export class HeaderWeatherComponent {
   }
   navigateToFavoritesPage() {
     this.pageStateService.setCurrentPage('favorites');
+  }
+  setMetric(){
+    this.pageStateService.setMetric(true);
+  }
+  clearMetric(){
+    this.pageStateService.setMetric(false);
+  }
+  getIsMetric(){
+    return this.pageStateService.getIsMetric().getValue();
   }
 }

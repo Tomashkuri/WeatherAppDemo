@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { PageStateService } from '../services/page-state.service';
 
 @Component({
@@ -7,11 +7,11 @@ import { PageStateService } from '../services/page-state.service';
   styleUrls: ['./page-switcher.component.css']
 })
 export class PageSwitcherComponent {
-  
+  @Input() isMetric: boolean;
   constructor(private pageStateService: PageStateService) { }
 
   isWeatherPage() :boolean{
     return this.pageStateService.getCurrentPage() === 'weather';
-  
   }
+  
 }

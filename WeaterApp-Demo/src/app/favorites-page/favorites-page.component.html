@@ -8,9 +8,14 @@
             <div class="day-name">
                 <p>{{ day.cityName }}</p>
             </div>
-            <div class="day-temperature">
+            <div class="day-temperature" *ngIf="getIsMetric(); else imperial">
                 <p>{{ day.temperature.Metric.Value }}°C</p>
             </div>
+            <ng-template #imperial>
+                <div class="day-temperature">
+                    <p>{{ day.temperature.Imperial.Value }}°F</p>
+                </div>
+            </ng-template>
             <div class="day-icon">
                 <img src= "assets/{{ day.weatherIcon }}.png" alt="weather-icon">
             </div>
